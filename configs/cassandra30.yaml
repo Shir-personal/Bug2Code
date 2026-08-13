@@ -1,0 +1,9 @@
+# Final scope: Cassandra only, a fixed 30% subset of each split, isolated paths.
+projects: [cassandra]
+dev_subset_name: cassandra30_subset.parquet
+paths:
+  cache: data/cache_cassandra30
+  experiments: experiments_cassandra30
+  reports: reports_cassandra30
+  figures: reports_cassandra30/figures
+  tables: reports_cassandra30/tables

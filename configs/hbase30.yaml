@@ -1,0 +1,10 @@
+# Generalization-to-other-projects target: HBase, isolated paths. No training here; reuses the
+# Cassandra30 checkpoint (see cross_project_scores.py).
+projects: [hbase]
+dev_subset_name: hbase30_subset.parquet
+paths:
+  cache: data/cache_hbase30
+  experiments: experiments_hbase30
+  reports: reports_hbase30
+  figures: reports_hbase30/figures
+  tables: reports_hbase30/tables

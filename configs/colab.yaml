@@ -1,0 +1,4 @@
+# Colab override: send outputs to Drive so they survive a runtime disconnect.
+paths:
+  experiments: /content/drive/MyDrive/DeepLearning/FinalProject/experiments
+  reports: /content/drive/MyDrive/DeepLearning/FinalProject/reports

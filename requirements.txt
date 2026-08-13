@@ -1,0 +1,36 @@
+# Core numerics / data
+numpy>=1.26
+pandas>=2.2
+scipy>=1.13
+
+# Deep learning
+torch>=2.5
+transformers>=4.44
+tokenizers>=0.19
+accelerate>=0.33
+datasets>=2.20
+
+# Classical baselines
+scikit-learn>=1.5
+rank-bm25>=0.2.2
+
+# Data collection
+requests>=2.32
+tenacity>=8.5
+pyarrow>=17.0
+
+# Config / infrastructure
+pydantic>=2.8
+PyYAML>=6.0
+python-dotenv>=1.0
+tqdm>=4.66
+
+# Reporting / EDA
+matplotlib>=3.9
+seaborn>=0.13
+jupyter>=1.1
+ipykernel>=6.29
+
+# Dev
+pytest>=8.3
+ruff>=0.6

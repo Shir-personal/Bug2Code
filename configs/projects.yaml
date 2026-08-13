@@ -1,0 +1,43 @@
+# Per-project settings for the three Apache projects in scope.
+# source_roots limits candidate files to directories that hold product code.
+
+projects:
+  spark:
+    jira_key: SPARK
+    github: apache/spark
+    default_branch: master
+    primary_language: scala
+    source_roots:
+      - core/src/main
+      - sql
+      - mllib
+      - streaming
+      - resource-managers
+      - common
+      - graphx
+      - launcher
+      - python/pyspark
+
+  cassandra:
+    jira_key: CASSANDRA
+    github: apache/cassandra
+    default_branch: trunk
+    primary_language: java
+    source_roots:
+      - src/java
+      - tools/stress/src
+
+  hbase:
+    jira_key: HBASE
+    github: apache/hbase
+    default_branch: master
+    primary_language: java
+    source_roots:
+      - hbase-server/src/main
+      - hbase-client/src/main
+      - hbase-common/src/main
+      - hbase-mapreduce/src/main
+      - hbase-replication/src/main
+      - hbase-thrift/src/main
+      - hbase-rest/src/main
+      - hbase-zookeeper/src/main

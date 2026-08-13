@@ -1,0 +1,10 @@
+# Generalization-to-other-projects target: Spark, isolated paths. No training here; reuses the
+# Cassandra30 checkpoint (see cross_project_scores.py).
+projects: [spark]
+dev_subset_name: spark30_subset.parquet
+paths:
+  cache: data/cache_spark30
+  experiments: experiments_spark30
+  reports: reports_spark30
+  figures: reports_spark30/figures
+  tables: reports_spark30/tables

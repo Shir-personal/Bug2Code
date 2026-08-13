@@ -1,0 +1,5 @@
+method,split,n_bugs,hit_at_1,hit_at_5,hit_at_10,hit_at_20,mrr,map,provenance
+TF-IDF,test,128,0.2969,0.5312,0.6641,0.7891,0.4107,0.3106,local_artifact
+Frozen CodeBERT,test,128,0.0080,0.0160,0.0230,0.0630,0.0190,0.0150,colab_executed_only
+Fine-tuned CodeBERT (epoch 3),test,128,0.1641,0.3516,0.4531,0.5781,0.2646,0.1687,local_artifact
+Hybrid TF-IDF + Fine-tuned CodeBERT (alpha=0.5),test,128,0.3359,0.6562,0.7188,0.8359,0.4739,0.3666,local_artifact

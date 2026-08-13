@@ -1,0 +1,59 @@
+# Environments
+.venv/
+venv/
+.env
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# Data: everything is regenerable from the pipeline, so nothing is committed.
+# The negations keep the directory skeleton (via .gitkeep) visible.
+data/**
+!data/**/
+!data/**/.gitkeep
+# Re-ignore the clones outright: they are nested git repositories, which the
+# directory negation above would otherwise expose to `git add`.
+data/repos/**
+!data/repos/.gitkeep
+
+# Model checkpoints and embedding caches
+models/
+*.pt
+*.bin
+*.safetensors
+*.npy
+*.npz
+*.faiss
+
+# Experiment outputs: per-run artefacts are regenerable, so nothing is committed.
+experiments/finetuned_codebert/checkpoints/
+experiments/finetuned_codebert/logs/
+experiments/runs/
+
+# Reports: only the final dataset-construction diagnostic tables/figures (01-14 /
+# fig01-04) and the top-level final-result CSVs are committed. Anything else
+# generated into these directories stays local.
+reports/figures/**
+!reports/figures/.gitkeep
+!reports/figures/fig0[1-4]_*.png
+reports/tables/**
+!reports/tables/.gitkeep
+!reports/tables/0[1-9]_*.csv
+!reports/tables/1[0-4]_*.csv
+
+# Scratch working directory: raw candidate-score parquets and per-bug
+# intermediate outputs. Small final summaries are consolidated into reports/
+# instead of being committed from here.
+reports_cassandra30/

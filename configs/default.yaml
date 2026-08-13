@@ -1,0 +1,91 @@
+# Base config. Experiment configs override a subset of these keys.
+
+seed: 42
+device: auto  # picks cuda, then mps, then cpu
+
+projects: [spark, cassandra, hbase]
+
+jira:
+  base_url: https://issues.apache.org/jira
+  issue_types: [Bug]  # only fixed bugs have a real fixing commit
+  statuses: [Resolved, Closed]
+  resolutions: [Fixed]
+  created_after: "2014-01-01"   # window matches the GitBugs sample era
+  created_before: "2021-01-01"
+  page_size: 100
+  max_issues_per_project: null  # null = no cap
+  request_timeout_s: 30
+  max_retries: 5
+
+github:
+  use_local_clones: true  # local clones are exhaustive, offline, unlimited
+  clone_dir: data/repos
+  partial_clone: false    # full clone avoids network fetches on snapshot reads
+  api_fallback: false
+
+linking:
+  # earliest fix commit on the default branch, when several commits match
+  multi_commit_policy: earliest_on_default_branch
+  exclude_merge_commits: true   # merges and reverts duplicate the real change
+  exclude_revert_commits: true
+  max_files_changed: 30      # very large commits are refactors, not bugs
+  min_files_changed: 1
+
+candidates:
+  source_extensions: [".java", ".scala", ".py"]
+  exclude_path_patterns:
+    - "/test/"
+    - "/tests/"
+    - "src/test/"
+    - "/target/"
+    - "/generated/"
+    - "package-info.java"
+  snapshot: fix_parent  # rank against the fix's parent commit, never the fix itself
+  new_file_policy: drop_from_gold  # files the fix adds can't exist in that snapshot
+  drop_bug_if_gold_empty: true
+
+split:
+  strategy: temporal  # by issue date, so it mirrors deployment and blocks leakage
+  train_frac: 0.7
+  val_frac: 0.1
+  test_frac: 0.2
+
+localization:
+  query_fields: [title, description]  # candidate file contents are the other side
+  query_max_length: 256
+  code_max_length: 256
+  chunk_stride: 192            # overlap between consecutive code chunks
+  max_chunks_per_file: 12
+  chunk_aggregation: max       # file score = max over its chunk scores
+  tfidf:
+    max_features: 100000
+    ngram_range: [1, 1]
+    sublinear_tf: true
+    split_identifiers: true  # splits camelCase/snake_case before weighting
+  encoder:
+    hf_name: microsoft/codebert-base
+    tied_weights: false        # separate natural-language and code towers
+    pooling: mean              # SBERT default
+    lr: 2.0e-5                 # only these three are tuned, on validation
+    batch_size: 16
+    epochs: 3
+    dropout: 0.1
+    loss: mnr    # in-batch negatives, no hard-negative mining
+    scale: 20.0  # logit scale, i.e. 1 / temperature
+  component_filter:
+    min_bugs_per_component: 1  # Component->files map built from TRAIN bugs only
+
+evaluation:
+  k_values: [1, 5, 10, 20]
+  ranking_metrics: [hit_at_k, recall_at_k, mrr, map]
+
+paths:
+  data_raw: data/raw
+  data_interim: data/interim
+  data_processed: data/processed
+  cache: data/cache
+  repos: data/repos
+  experiments: experiments
+  reports: reports
+  figures: reports/figures
+  tables: reports/tables
